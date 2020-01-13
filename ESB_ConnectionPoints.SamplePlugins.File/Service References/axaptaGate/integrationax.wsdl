@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://srv-aos2-gate:80/integrationax/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://srv-aos2-gate:80/integrationax/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://srv-aos2-gate:80/integrationax/">
+      <s:element name="sendMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:RequestArg" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RequestArg">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClassId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Body" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExternalSystem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DestinationServer" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="sendMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sendMessageResult" type="tns:ResponceArg" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResponceArg">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="resultStatus" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="resultLocation" type="tns:ResponceArgLocation" />
+          <s:element minOccurs="0" maxOccurs="1" name="resultCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="resultMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="resultRecId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="resultTableId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="resultDocNum" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ResponceArgLocation">
+        <s:restriction base="s:string">
+          <s:enumeration value="AX" />
+          <s:enumeration value="WebService" />
+          <s:enumeration value="WebServiceValidation" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="sendMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:sendMessage" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:sendMessageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IntegrationaxSoap">
+    <wsdl:operation name="sendMessage">
+      <wsdl:input message="tns:sendMessageSoapIn" />
+      <wsdl:output message="tns:sendMessageSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IntegrationaxSoap" type="tns:IntegrationaxSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="sendMessage">
+      <soap:operation soapAction="http://srv-aos2-gate:80/integrationax/sendMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IntegrationaxSoap12" type="tns:IntegrationaxSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="sendMessage">
+      <soap12:operation soapAction="http://srv-aos2-gate:80/integrationax/sendMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Integrationax">
+    <wsdl:port name="IntegrationaxSoap" binding="tns:IntegrationaxSoap">
+      <soap:address location="http://srv-aos2-gate/integrationax/integrationax.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IntegrationaxSoap12" binding="tns:IntegrationaxSoap12">
+      <soap12:address location="http://srv-aos2-gate/integrationax/integrationax.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

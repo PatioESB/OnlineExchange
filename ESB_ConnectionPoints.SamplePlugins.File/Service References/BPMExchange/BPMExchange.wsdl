@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd1="http://srv-1c-web.patio-minsk.by/BPMExchange/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12bind="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:tns="http://srv-1c-web.patio-minsk.by/BPMExchange/" name="BPMExchange" targetNamespace="http://srv-1c-web.patio-minsk.by/BPMExchange/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema xmlns:xs1="http://srv-1c-web.patio-minsk.by/BPMExchange/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://srv-1c-web.patio-minsk.by/BPMExchange/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="OrderLinksType">
+        <xs:choice>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Link" type="xs:string" />
+        </xs:choice>
+      </xs:complexType>
+      <xs:complexType name="OrderNumber">
+        <xs:choice>
+          <xs:element minOccurs="0" name="AmountOfDownPayment" type="xs:float" />
+          <xs:element minOccurs="0" name="BonusCard" type="xs:string" />
+          <xs:element minOccurs="0" name="CashOrder" type="xs:string" />
+          <xs:element minOccurs="0" name="CommentOrder" type="xs:string" />
+          <xs:element minOccurs="0" name="ConfirmationOrder" type="xs:string" />
+          <xs:element minOccurs="0" name="CreditTransactionNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="DateOfLoanAgreement" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="FullNameOfTheBorrower" type="xs:string" />
+          <xs:element minOccurs="0" name="OrderCreationSource" type="xs:string" />
+          <xs:element minOccurs="0" name="PaymentMethod" type="xs:string" />
+          <xs:element minOccurs="0" name="SalesOrderNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="TransactionNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="Links" type="xs1:OrderLinksType" />
+          <xs:element minOccurs="0" name="Positions" type="xs1:OrderPositionsType" />
+        </xs:choice>
+      </xs:complexType>
+      <xs:complexType name="OrderPositionType">
+        <xs:choice>
+          <xs:element minOccurs="0" name="Amount" type="xs:float" />
+          <xs:element minOccurs="0" name="LineNumber" type="xs:int" />
+          <xs:element minOccurs="0" name="Qty" type="xs:float" />
+          <xs:element minOccurs="0" name="Quality" type="xs:string" />
+          <xs:element minOccurs="0" name="ReserveWarehouse" type="xs:string" />
+          <xs:element minOccurs="0" name="SaleFromStockSamples" type="xs:string" />
+          <xs:element minOccurs="0" name="Salesman" type="xs:string" />
+          <xs:element minOccurs="0" name="SerialNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="ServiceSKU" type="xs:string" />
+          <xs:element minOccurs="0" name="ServiceSKUPrice" type="xs:float" />
+          <xs:element minOccurs="0" name="Sku" type="xs:string" />
+          <xs:element minOccurs="0" name="SupplierRange" type="xs:string" />
+          <xs:element minOccurs="0" name="TypeSale" type="xs:string" />
+          <xs:element minOccurs="0" name="UniqueServiceNumber" type="xs:string" />
+        </xs:choice>
+      </xs:complexType>
+      <xs:complexType name="OrderPositionsType">
+        <xs:choice>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Position" type="xs1:OrderPositionType" />
+        </xs:choice>
+      </xs:complexType>
+      <xs:complexType name="RequestArg">
+        <xs:sequence>
+          <xs:element name="Id" nillable="true" type="xs:string" />
+          <xs:element name="Type" nillable="true" type="xs:string" />
+          <xs:element name="ClassId" type="xs:int" />
+          <xs:element name="Body" type="xs:string" />
+          <xs:element name="ExternalSystem" nillable="true" type="xs:string" />
+          <xs:element name="DestinationServer" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ResponseArg">
+        <xs:all>
+          <xs:element name="resultStatus" type="xs:boolean" />
+          <xs:element name="resultLocation" nillable="true" type="xs:string" />
+          <xs:element name="resultCode" nillable="true" type="xs:string" />
+          <xs:element name="resultMessage" nillable="true" type="xs:string" />
+          <xs:element name="resultRecId" nillable="true" type="xs:string" />
+          <xs:element name="resultTableId" nillable="true" type="xs:string" />
+          <xs:element name="resultDocNum" nillable="true" type="xs:string" />
+        </xs:all>
+      </xs:complexType>
+      <xs:complexType name="SendMessage">
+        <xs:sequence>
+          <xs:element name="Request" type="xs1:RequestArg" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="SendMessageResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="SendMessageResult" type="xs1:ResponseArg" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="SendMessage">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Request" type="xs1:RequestArg" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SendMessageResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs1:ResponseArg" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <message name="SendMessageRequestMessage">
+    <part name="parameters" element="tns:SendMessage" />
+  </message>
+  <message name="SendMessageResponseMessage">
+    <part name="parameters" element="tns:SendMessageResponse" />
+  </message>
+  <portType name="BPMExchangePortType">
+    <operation name="SendMessage">
+      <input message="tns:SendMessageRequestMessage" />
+      <output message="tns:SendMessageResponseMessage" />
+    </operation>
+  </portType>
+  <binding name="BPMExchangeSoapBinding" type="tns:BPMExchangePortType">
+    <soapbind:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="SendMessage">
+      <soapbind:operation soapAction="http://srv-1c-web.patio-minsk.by/BPMExchange/#BPMExchange:SendMessage" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="BPMExchangeSoap12Binding" type="tns:BPMExchangePortType">
+    <soap12bind:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="SendMessage">
+      <soap12bind:operation soapAction="http://srv-1c-web.patio-minsk.by/BPMExchange/#BPMExchange:SendMessage" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="BPMExchange">
+    <port name="BPMExchangeSoap" binding="tns:BPMExchangeSoapBinding">
+      <documentation>
+        <wsi:Claim xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" conformsTo="http://ws-i.org/profiles/basic/1.1" />
+      </documentation>
+      <soapbind:address location="http://ss-1c-web1.patio-minsk.by/stagepatiotrade/ws/BPMExchange" />
+    </port>
+    <port name="BPMExchangeSoap12" binding="tns:BPMExchangeSoap12Binding">
+      <soap12bind:address location="http://ss-1c-web1.patio-minsk.by/stagepatiotrade/ws/BPMExchange" />
+    </port>
+  </service>
+</definitions>
